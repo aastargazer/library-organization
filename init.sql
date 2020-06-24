@@ -32,7 +32,7 @@ CREATE TABLE borrowBook
 (
     serialNumber int primary key AUTO_INCREMENT,
     readerNo varchar(10) not null,
-    bookNo varchar(10) not null unique,
+    bookNo varchar(10) not null,
     borrowDate date not null,
     foreign key (readerNo) references reader(readerNo),
     foreign key (bookNo) references book(bookNo)
@@ -60,7 +60,6 @@ CREATE TABLE fine
     lossResult varchar(20) not null,
     foreign key (readerNo) references reader(readerNo),
     foreign key (bookNo) references book(bookNo)
-    -- TODO: 罚款流水号和借阅流水号一一对应，但是考虑到编程难度，暂时没有增加外码依赖
 );
 
 -- 遗失信息
@@ -74,3 +73,5 @@ CREATE TABLE loss
 
 CREATE INDEX book_IND on book (bookNo);
 CREATE INDEX reader_IND on reader (readerNo);
+ 
+INSERT INTO `admin` (`adminname`, `password`, `level`) VALUES ('normal', 'normal', 'normal'), ('super', 'super', 'super');
