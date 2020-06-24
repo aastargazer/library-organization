@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>图书在馆状态</title>
+    <title>记录查询</title>
     <style>
         * {
             margin: 0;
@@ -59,34 +59,37 @@ $mysqli = mysqli_connect("localhost", "root", "", "library");
 if (mysqli_connect_errno()) {
     die("Failed to connect to MySQL: (" . mysqli_connect_errno() . ") " . mysqli_connect_error());
 } 
-	// echo 'sucessful to connect to MySQL!<br/>';
+// 为输出表格做准备
+$str = "SELECT * FROM $type";
+$res=mysqli_query($mysqli,$str);
+if(!$res){
+    echo "列表生成失败，请联系数据库管理员";
+    mysqli_close($mysqli);
+}
+if($type=='fine'){
+    $title="<div class='head'><br>罚款记录</div>";
+    $head="<tr><td>流水号</td><td>读者号</td><td>图书编号</td><td>罚款</td><td>备注</td></tr>";
+} else {
+    $title="<div class='head'><br>损失记录</div>";
+    $head="<tr><td>图书编号</td><td>损失结果</td><td>损失记录日期</td></tr>";
+}
 // 输出表格
 echo "<table border='4px' cellpadding='15px' cellspacing='0px'>";
-if($type=='hot')
-{
-	$str="select bookName,category,frequency from book order by frequency DESC limit 10";//排名前十的图书
-	echo"<div class='head'><br>热书书单</div>";
-	echo"<tr><td>图书名</td><td>图书类别</td><td>频度</td></tr>";
-}
-if($type=='latest')
-{
-	$str="select bookName,category,importDate from book order by importDate DESC limit 10";
-	echo"<div class='head'><br>新书书单</div>";
-	echo"<tr><td>图书名</td><td>图书类别</td><td>上架时间</td></tr>";
-}
-if($res=mysqli_query($mysqli,$str))
-{
-	while($row=mysqli_fetch_row($res))
-	{
-		echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td></tr>";
-	}
+echo $title;
+echo $head;
+while($row=mysqli_fetch_row($res)){
+    if($type=='fine'){
+        echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td></tr>";
+    } else {
+    echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td></tr>";
+    }
 }
 
 echo "</table>";
 // 表格输出完毕
-echo "<div class='bottom'><br><a href='recommend.php' >返回上一页面</a></br>";
+echo "<div class='bottom'><br><a href='fine_loss_record.php' >返回上一页面</a></br>";
 echo "<a href='main.php' ><br>回到首页</a></br></div>";
-mysqli_close($mysqli);  //还差美化界面 -> TODO: 等测试阶段进行
+mysqli_close($mysqli);  
 ?>
 </body>
 </html>
