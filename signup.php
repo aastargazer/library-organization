@@ -8,13 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="login.css">
-    <title>登录</title>
+    <title>注册</title>
 </head>
 
 <body>
-    <form action="validate.php" method="post">
-        <div class="login-box">
-            <h1>登录</h1>
+    <form action="adminInsert.php" method="post">
+        <div class="signup-box">
+            <h1>注册</h1>
 
             <div class="textbox">
                 <i class="fa fa-user" aria-hidden="true"></i>
@@ -25,10 +25,15 @@
                 <i class="fa fa-lock" aria-hidden="true"></i>
                 <input type="password" placeholder="密码" name="password" value="">
             </div>
-
-            <input class="button" type="submit" name="login" value="登录">
+            <div class="level">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="select" style="letter-spacing: 0px;"><input type="radio" name="level" value="normal" checked="checked" id="normal"><label for="normal">Normal</label></span>
+                <span class="select"><input type="radio" name="level" value="super" id="super"><label for="super">Super</label></span>
+            </div>
+            <input class="button" type="submit" name="signup" value="注册">
         </div>
     </form>
+    <div class="back"><a href="main.su.php">回到首页</a></div>
 </body>
 
 </html>
@@ -42,7 +47,7 @@
         background-size: cover;
     }
 
-    .login-box {
+    .signup-box {
         width: 280px;
         position: absolute;
         top: 50%;
@@ -50,7 +55,7 @@
         transform: translate(-50%, -50%);
     }
 
-    .login-box h1 {
+    .signup-box h1 {
         float: left;
         font-size: 40px;
 
@@ -59,7 +64,8 @@
         padding: 13px;
     }
 
-    .textbox {
+    .textbox,
+    .level {
         width: 100%;
         overflow: hidden;
         font-size: 20px;
@@ -78,6 +84,7 @@
         border: none;
         outline: none;
         background: none;
+
         font-size: 18px;
         float: left;
         margin: 0 10px;
@@ -94,4 +101,19 @@
         cursor: pointer;
         margin: 12px 0;
     }
+
+    .back {
+        position: absolute;
+        top: 95%;
+        left: 10px;
+    }
+
+    /* .level {
+        border: none;
+        font-size: 18px;
+        margin: auto;
+        align: center;
+        float: left;
+        width: 100%;
+    } */
 </style>
